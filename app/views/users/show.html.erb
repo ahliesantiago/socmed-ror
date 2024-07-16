@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+<p style="color: red"><%= flash[:alert] %></p>
+<%= render "shared/header" %>
+
+<div id="user-follow" class="mb-3">
+    <h2 id="username"><%= @user.username %></h2>
+    <% if session[:id] != @user.id && @following_state == "not followed" %>
+    <form class="follow-button" action="/users/<%= @user.id %>/follow" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="submit" value="Follow" class="btn btn-success mx-4">
+    </form>
+    <% end %>
+    <% if session[:id] != @user.id && @following_state != "not followed" %>
+    <a class="btn btn-danger follow-button mx-4" href="/users/<%= @user.id %>/unfollow/user" data-turbo-method="delete">Unfollow</a>
+    <% end %>
+</div>
+
+<p>Member since: <%= @join_date %></p>
+
+<% if @follower_count != 0 %>
+<a href="/users/<%= @user.id %>/followers"><%= pluralize(@follower_count, "follower") %></a>
+<% end %>
+<% if @follower_count != 0 && @following_count != 0 %>
+|
+<% end %>
+<% if @following_count != 0 %>
+<a href="/users/<%= @user.id %>/following"><%= @following_count %> following</a>
+<% end %>
+
+<h3>Recently became a ninja:</h3>
+<ul>
+    <% @users.each do |user| %>
+    <li><%= link_to user.username, user %></li>
+    <% end %>
+</ul>

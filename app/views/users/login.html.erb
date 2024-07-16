@@ -1,0 +1,23 @@
+<h1>Village 88 Ninjas</h1>
+
+<p style="color: red"><%= flash[:alert] %></p>
+
+<%= form_with(model: @user) do |form| %>
+    <div class="px-3 mb-3">
+        <%= form.label :username %><br/>
+        <%= form.text_field :username, class: "form-control" %>
+    </div>
+
+    <div class="px-3 mb-3">
+        <%= form.label :password %><br/>
+        <%= form.password_field :password, class: "form-control" %>
+    </div>
+
+    <div class="px-3">
+        <%= form.submit "Log in", class: "btn btn-primary" %>
+    </div>
+    <% end %>
+
+    <div>
+        <%= link_to "Create new account", new_user_path %>
+    </div>

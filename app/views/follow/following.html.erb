@@ -1,0 +1,27 @@
+<%= render "shared/header" %>
+
+<h2 id="username"><a href="/users/<%= @user.id %>"><%= @user.username %></a>'s Following</h2>
+<% if @following.any? %>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Date</th>
+        <% if @user.id == session[:id] %>
+        <th>Action</th>
+        <% end %>
+    </tr>
+    <% @following.each do |followed| %>
+    <tr>
+        <td><a href="/users/<%= followed.id %>"><%= followed.username %></a></td>
+        <td><%= followed.created_at.to_time.strftime("%m-%d-%Y") %></td>
+        <% if @user.id == session[:id] %>
+        <td><a href="/users/<%= followed.id %>/unfollow/list" data-turbo-method="delete">Unfollow</a></td>
+        <% end %>
+    </tr>
+    <% end %>
+</table>
+<% else %>
+<h4>Not following anyone yet...</h4>
+<% end %>
+
+<p style="color: green"><%= notice %></p>

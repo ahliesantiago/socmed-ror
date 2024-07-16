@@ -1,0 +1,8 @@
+<nav>
+    <h1>Village 88 Ninjas</h1>
+
+    <div class="user_links">
+        <h4>Welcome, <a href="/users/<%= session[:id] %>"><%= session[:username] %></a>!</h4>
+        <h4><%= link_to "Logout", users_logout_path %></h4>
+    </div>
+</nav>

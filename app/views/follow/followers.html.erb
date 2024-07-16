@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+<%= render "shared/header" %>
+
+<h2 id="username"><a href="/users/<%= @user.id %>"><%= @user.username %></a>'s Followers</h2>
+<% if @followers.any? %>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Date</th>
+    </tr>
+    <% @followers.each do |follower| %>
+    <tr>
+        <td><a href="/users/<%= follower.id %>"><%= follower.username %></a></td>
+        <td><%= follower.created_at.to_time.strftime("%m-%d-%Y") %></td>
+    </tr>
+    <% end %>
+</table>
+<% else %>
+<h4>No followers yet...</h4>
+<% end %>
